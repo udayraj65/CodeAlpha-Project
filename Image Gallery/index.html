@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumen — Image Gallery</title>
+
+  <!-- Google Fonts: Outfit for display, Inter for body/UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient gradient background blobs -->
+  <div class="bg-ambient" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+
+  <div class="app-shell">
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark"><i class="fa-solid fa-images"></i></span>
+        <div class="brand-text">
+          <span class="brand-name">Lumen</span>
+          <span class="brand-tagline">Your images, beautifully organized</span>
+        </div>
+      </div>
+
+      <label class="upload-btn" for="fileInput">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <span>Upload Images</span>
+      </label>
+      <input type="file" id="fileInput" accept="image/*" multiple hidden />
+    </header>
+
+    <!-- ===================== CATEGORY FILTER BAR ===================== -->
+    <nav class="filter-bar" aria-label="Filter by category">
+      <button class="filter-btn active" data-filter="all">
+        <i class="fa-solid fa-border-all"></i> All
+      </button>
+      <button class="filter-btn" data-filter="nature">
+        <i class="fa-solid fa-leaf"></i> Nature
+      </button>
+      <button class="filter-btn" data-filter="city">
+        <i class="fa-solid fa-city"></i> City
+      </button>
+      <button class="filter-btn" data-filter="animals">
+        <i class="fa-solid fa-paw"></i> Animals
+      </button>
+      <button class="filter-btn" data-filter="technology">
+        <i class="fa-solid fa-microchip"></i> Technology
+      </button>
+    </nav>
+
+    <!-- ===================== GALLERY GRID ===================== -->
+    <main>
+      <section class="gallery-grid" id="galleryGrid">
+        <!-- Empty state shown when no images have been uploaded -->
+        <div class="empty-state" id="emptyState">
+          <i class="fa-solid fa-image"></i>
+          <p>Your gallery is empty</p>
+          <span>Click “Upload Images” to add photos from your device</span>
+        </div>
+        <!-- Gallery cards injected here by JS -->
+      </section>
+
+      <!-- Shown when a filter has zero matching results -->
+      <div class="empty-state" id="noResultsState" hidden>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <p>No images in this category</p>
+        <span>Try a different filter or upload more photos</span>
+      </div>
+    </main>
+  </div>
+
+  <!-- ===================== CATEGORY ASSIGNMENT MODAL ===================== -->
+  <div class="modal-overlay" id="categoryModal">
+    <div class="modal glass">
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-tags"></i> Assign Categories</h2>
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <p class="modal-hint">Choose a category for each photo before adding it to your gallery.</p>
+
+      <div class="modal-list" id="modalList">
+        <!-- Pending upload rows injected here by JS -->
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" id="modalCancelBtn">Cancel</button>
+        <button class="btn-primary" id="modalConfirmBtn">
+          <i class="fa-solid fa-check"></i> Add to Gallery
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== LIGHTBOX ===================== -->
+  <div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-btn close-btn" id="lightboxClose" aria-label="Close lightbox" title="Close (Esc)">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <button class="lightbox-btn prev-btn" id="lightboxPrev" aria-label="Previous image" title="Previous (←)">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <div class="lightbox-content">
+      <img id="lightboxImage" src="" alt="" />
+      <div class="lightbox-caption">
+        <span class="lightbox-title" id="lightboxTitle"></span>
+        <span class="lightbox-counter" id="lightboxCounter"></span>
+      </div>
+    </div>
+
+    <button class="lightbox-btn next-btn" id="lightboxNext" aria-label="Next image" title="Next (→)">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

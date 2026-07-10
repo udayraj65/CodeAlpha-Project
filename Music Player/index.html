@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wavelength — Music Player</title>
+
+  <!-- Google Fonts: Sora for display, Inter for body/UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient gradient background blobs -->
+  <div class="bg-ambient" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+
+  <div class="app-shell">
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark"><i class="fa-solid fa-wave-square"></i></span>
+        <span class="brand-name">Wavelength</span>
+      </div>
+
+      <label class="load-songs-btn" for="fileInput">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Load Songs</span>
+      </label>
+      <input type="file" id="fileInput" accept="audio/*" multiple hidden />
+    </header>
+
+    <!-- ===================== MAIN LAYOUT ===================== -->
+    <main class="main-layout">
+
+      <!-- ---------- PLAYLIST PANEL (left on desktop, below on mobile) ---------- -->
+      <section class="playlist-panel glass" aria-label="Playlist">
+        <div class="playlist-header">
+          <h2><i class="fa-solid fa-list-ul"></i> Playlist</h2>
+          <span class="track-count" id="trackCount">0 tracks</span>
+        </div>
+
+        <ul class="playlist-list" id="playlistList">
+          <!-- Empty state -->
+          <li class="empty-state" id="emptyState">
+            <i class="fa-solid fa-music"></i>
+            <p>No songs loaded yet</p>
+            <span>Click “Load Songs” to add MP3 files from your device</span>
+          </li>
+          <!-- Song items injected by JS -->
+        </ul>
+      </section>
+
+      <!-- ---------- PLAYER PANEL ---------- -->
+      <section class="player-panel glass" aria-label="Now Playing">
+
+        <!-- Album Cover -->
+        <div class="cover-wrap">
+          <div class="cover-art" id="coverArt">
+            <!-- Default cover (shown when no custom art available) -->
+            <div class="default-cover" id="defaultCover">
+              <img
+                src="default-cover.jpg"
+                alt="Album cover"
+                class="spinning-disc"
+                id="spinningDisc"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Track Info -->
+        <div class="track-info">
+          <h1 class="track-title" id="trackTitle">No song loaded</h1>
+          <p class="track-artist" id="trackArtist">Load your music to get started</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-section">
+          <span class="time-label" id="currentTime">0:00</span>
+          <input
+            type="range"
+            id="progressBar"
+            class="progress-bar"
+            min="0"
+            max="100"
+            value="0"
+            step="0.1"
+            aria-label="Seek"
+          />
+          <span class="time-label" id="totalDuration">0:00</span>
+        </div>
+
+        <!-- Main Controls -->
+        <div class="controls-main">
+          <button class="control-btn" id="shuffleBtn" title="Shuffle" aria-label="Shuffle">
+            <i class="fa-solid fa-shuffle"></i>
+          </button>
+
+          <button class="control-btn" id="prevBtn" title="Previous" aria-label="Previous track">
+            <i class="fa-solid fa-backward-step"></i>
+          </button>
+
+          <button class="control-btn play-btn" id="playBtn" title="Play" aria-label="Play/Pause">
+            <i class="fa-solid fa-play" id="playIcon"></i>
+          </button>
+
+          <button class="control-btn" id="nextBtn" title="Next" aria-label="Next track">
+            <i class="fa-solid fa-forward-step"></i>
+          </button>
+
+          <button class="control-btn" id="repeatBtn" title="Repeat" aria-label="Repeat">
+            <i class="fa-solid fa-repeat"></i>
+          </button>
+        </div>
+
+        <!-- Volume Controls -->
+        <div class="controls-volume">
+          <button class="volume-icon-btn" id="muteBtn" title="Mute/Unmute" aria-label="Mute">
+            <i class="fa-solid fa-volume-high" id="volumeIcon"></i>
+          </button>
+          <input
+            type="range"
+            id="volumeSlider"
+            class="volume-slider"
+            min="0"
+            max="1"
+            value="1"
+            step="0.01"
+            aria-label="Volume"
+          />
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Hidden native audio element that powers playback -->
+  <audio id="audioPlayer" preload="metadata"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
